@@ -9,5 +9,6 @@ app.listen(3333);
 
 app.use(require('./routes/auth'));
 app.use(require('./routes/post'));
+app.use(require('./routes/index'));
 
 module.exports = app;
