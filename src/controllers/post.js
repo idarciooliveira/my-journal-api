@@ -63,11 +63,19 @@ postController.remove = async (req, res) => {
 
 postController.update = async (req, res) => {
   try {
+    if (!(await postModel.findById(req.params.id))) {
+      return res.status(404).send({ message: 'Post not found' });
+    }
+
     const updatedPost = await postModel.findByIdAndUpdate(
       req.params.id,
       { ...req.body, image: req.file.filename },
       { new: true }
     );
+
+    if (!updatedPost)
+      return res.status(400).send({ message: 'Cannot update the post' });
+
     return res.send({ updatedPost });
   } catch (error) {
     res.status(400).send({ message: `Error ${error}` });

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const multer = require('multer');
 const multerConfig = require('../config/multer');
 const upload = multer(multerConfig);
-
+const authMiddleware = require('../middleware/auth');
 const {
   findAll,
   findAllByAuthor,
@@ -12,11 +12,11 @@ const {
   create,
 } = require('../controllers/post');
 
-router.get('/posts', findAll);
-router.get('/posts/author/:id', findAllByAuthor);
-router.delete('/posts/:id', remove);
-router.put('/posts/:id', upload.single('image'), update);
-router.get('/posts/:id', find);
-router.post('/posts', upload.single('image'), create);
+router.get('/posts', authMiddleware, findAll);
+router.get('/posts/author/:id', authMiddleware, findAllByAuthor);
+router.delete('/posts/:id', authMiddleware, remove);
+router.put('/posts/:id', authMiddleware, upload.single('image'), update);
+router.get('/posts/:id', authMiddleware, find);
+router.post('/posts', authMiddleware, upload.single('image'), create);
 
 module.exports = router;
