@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(3333);
+app.listen(process.env.PORT || 3333);
 
 app.use(require('./routes/auth'));
 app.use(require('./routes/post'));
