@@ -23,6 +23,11 @@ const post = mongoose.Schema({
     ref: 'author',
     required: true,
   },
+  categoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'category',
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('post', post);

@@ -8,8 +8,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(process.env.PORT || 3333);
-
 app.use(require('./routes/auth'));
+app.use(require('./routes/category'));
 app.use(require('./routes/post'));
 app.use(require('./routes/index'));
 

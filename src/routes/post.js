@@ -13,7 +13,7 @@ const {
   index,
 } = require('../controllers/post');
 
-router.get('/posts/index', authMiddleware, index);
+router.get('/posts/index', index);
 router.get('/posts', authMiddleware, findAll);
 router.get('/posts/author/:id', authMiddleware, findAllByAuthor);
 router.delete('/posts/:id', authMiddleware, remove);

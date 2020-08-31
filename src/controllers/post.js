@@ -7,6 +7,11 @@ postController.index = async (req, res) => {
   try {
     const posts = await postModel
       .find()
+      .populate({
+        path: 'categoryId',
+        select: 'description',
+        populate: 'categoryId',
+      })
       .select('title publicationDate image category')
       .lean();
     return await res.json({ posts });
@@ -32,7 +37,11 @@ postController.create = async (req, res) => {
 
 postController.findAll = async (req, res) => {
   try {
-    const posts = await postModel.find().populate('authorId').lean();
+    const posts = await postModel
+      .find()
+      .populate('authorId')
+      .populate('categoryId')
+      .lean();
     return await res.json({ posts });
   } catch (error) {
     res.status(400).send({ message: `Error ${error}` });
