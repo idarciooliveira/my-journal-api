@@ -3,6 +3,18 @@ const path = require('path');
 const fs = require('fs');
 const postController = {};
 
+postController.index = async (req, res) => {
+  try {
+    const posts = await postModel
+      .find()
+      .select('title publicationDate image category')
+      .lean();
+    return await res.json({ posts });
+  } catch (error) {
+    res.status(400).send({ message: `Error ${error}` });
+  }
+};
+
 postController.create = async (req, res) => {
   try {
     const post = new postModel({
